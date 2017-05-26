@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  Image,
-  ListView,
-  TouchableOpacity,
-} from 'react-native';
+import { Text, View, Image, ListView, TouchableOpacity } from 'react-native'; // eslint-disable-line
 import styled from 'styled-components/native';
 
 export default class reader extends Component {

@@ -1,20 +1,32 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  ListView,
-  Button,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Text, Image } from 'react-native'; // eslint-disable-line
 import { StackNavigator, TabNavigator } from 'react-navigation';
+import Config from 'react-native-config';
+import logger from './Services/logger';
+import api from './Services/api';
+import tracker, { trackPageView } from './Services/tracker';
 
+global.api = api;
+global.logger = logger;
+global.tracker = tracker;
+
+/* eslint-disable */
+import SplashScreen from './Screen/Splash';
+import LoginScreen from './Screen/Login';
 import BookShlef from './Screen/Books/index';
 import BookReader from './Screen/Reader/index'
 import UCenter from './Screen/UCenter/index';
 
+console.disableYellowBox = false;
+
+// tabbar icons
+const icons = {
+  books: require('./assets/books.png'),
+  ucenter: require('./assets/user-center.png'),
+};
+
 const BookShlefTab = StackNavigator({
   BookShlef: { screen: BookShlef },
-  BookReader: { screen: BookReader },
 }, {
   headerMode: 'none',
   initialRouteName: 'BookShlef',
@@ -22,7 +34,7 @@ const BookShlefTab = StackNavigator({
   navigationOptions: {
     tabBarLabel: '书架',
     title: '书架',
-    tabBarIcon: ({ tintColor }) => <Icon name="book" size={25} color={tintColor} />,
+    tabBarIcon: ({ tintColor }) => <Image source={icons.books} style={[{ width: 18, height: 18 }, { tintColor }]} />,
   },
 });
 
@@ -35,7 +47,7 @@ const UCenterTab = StackNavigator({
   navigationOptions: {
     tabBarLabel: '个人中心',
     title: '个人中心',
-    tabBarIcon: ({ tintColor }) => <Icon name="user" size={25} color={tintColor} />,
+    tabBarIcon: ({ tintColor }) => <Image source={icons.ucenter} style={[{ width: 18, height: 18 }, { tintColor }]} />,
   },
 });
 
@@ -51,9 +63,10 @@ const TabbarNavigator = TabNavigator({
 
 const MainNavigator = StackNavigator(
   {
-    // SplashScreen: { screen: SplashScreen },
-    // LoginScreen: { screen: LoginScreen },
+    SplashScreen: { screen: SplashScreen },
+    LoginScreen: { screen: LoginScreen },
     MainScreen: { screen: TabbarNavigator },
+    BookReader: { screen: BookReader },
   },
   {
     headerMode: 'none',
@@ -66,7 +79,7 @@ const MainNavigator = StackNavigator(
 class App extends Component {
   render() {
     return (
-      <MainNavigator/>
+      <MainNavigator onNavigationStateChange={trackPageView} />
     );
   }
 }

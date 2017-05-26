@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  ListView,
-  TouchableOpacity
-} from 'react-native';
+import { Text, View, ListView, TouchableOpacity } from 'react-native'; // eslint-disable-line
 import styled from 'styled-components/native';
 
 import Json from '../../../static/book_json'
