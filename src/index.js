@@ -14,14 +14,18 @@ global.tracker = tracker;
 import SplashScreen from './Screen/Splash';
 import LoginScreen from './Screen/Login';
 import BookShlef from './Screen/Books/index';
-import BookReader from './Screen/Reader/index'
-import UCenter from './Screen/UCenter/index';
+import BookReader from './Screen/Reader'
+import BookSearch from './Screen/Search'
+import BookDetail from './Screen/Books/BookDetail'
+import Directory from './Screen/Reader/Directory'
+import UCenter from './Screen/UCenter';
 
-console.disableYellowBox = false;
+console.disableYellowBox = true;
 
 // tabbar icons
 const icons = {
   books: require('./assets/books.png'),
+  search: require('./assets/public_search.png'),
   ucenter: require('./assets/user-center.png'),
 };
 
@@ -35,6 +39,19 @@ const BookShlefTab = StackNavigator({
     tabBarLabel: '书架',
     title: '书架',
     tabBarIcon: ({ tintColor }) => <Image source={icons.books} style={[{ width: 18, height: 18 }, { tintColor }]} />,
+  },
+});
+
+const BookSearchTab = StackNavigator({
+  BookSearch: { screen: BookSearch },
+}, {
+  headerMode: 'none',
+  initialRouteName: 'BookSearch',
+  initialRouteParams: {},
+  navigationOptions: {
+    tabBarLabel: '搜索',
+    title: '搜索',
+    tabBarIcon: ({ tintColor }) => <Image source={icons.search} style={[{ width: 18, height: 18 }, { tintColor }]} />,
   },
 });
 
@@ -53,9 +70,11 @@ const UCenterTab = StackNavigator({
 
 const TabbarNavigator = TabNavigator({
   BookShlefTab: { screen: BookShlefTab },
+  BookSearchTab: { screen: BookSearchTab },
   UCenterTab: { screen: UCenterTab },
 }, {
   headerMode: 'none',
+  initialRouteName: 'BookShlefTab',
   tabBarPosition: 'bottom',
   animationEnabled: false,
   swipeEnabled: false,
@@ -67,13 +86,15 @@ const MainNavigator = StackNavigator(
     LoginScreen: { screen: LoginScreen },
     MainScreen: { screen: TabbarNavigator },
     BookReader: { screen: BookReader },
+    BookDetail: { screen: BookDetail },
+    Directory: { screen: Directory },
   },
-  {
-    headerMode: 'none',
-    navigationOptions: {
-      headerVisible: false,
-    },
-  },
+  // {
+  //   headerMode: 'none',
+  //   navigationOptions: {
+  //     headerVisible: false,
+  //   },
+  // },
 );
 
 class App extends Component {
