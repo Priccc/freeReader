@@ -74,7 +74,7 @@ export default class Bookslist extends Component {
           renderRow={this._renderRow}
           enableEmptySections={true}
           isShowLoadMore={false}
-          showsVerticalScrollIndicator={false}
+          // showsVerticalScrollIndicator={false}
           removeClippedSubviews={false}
         />
       </Container>

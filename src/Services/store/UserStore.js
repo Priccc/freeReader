@@ -1,4 +1,3 @@
-import qs from 'qs';
 import Config from 'react-native-config';
 import { observable, action, autorun } from 'mobx';
 import storage from '../storage';
